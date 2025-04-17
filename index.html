@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أمنية | Oumnia - وصفات مميزة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6A359C;
+            --secondary: #FFD700;
+            --light: #FFFFFF;
+            --dark: #2E2E2E;
+            --gray: #F5F5F5;
+            --text-gray: #757575;
+        }
+        
+        * {
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 80px;
+        }
+        
+        /* Header */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, var(--primary), #8E44AD);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            color: var(--primary);
+            font-size: 16px;
+        }
+        
+        .app-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .app-title span {
+            color: var(--secondary);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .header-actions i {
+            font-size: 20px;
+            color: white;
+        }
+        
+        /* Search Bar */
+        .search-container {
+            padding: 15px 20px;
+            background-color: var(--light);
+            position: sticky;
+            top: 60px;
+            z-index: 90;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .search-bar {
+            display: flex;
+            background-color: var(--gray);
+            border-radius: 30px;
+            padding: 12px 20px;
+            align-items: center;
+        }
+        
+        .search-bar i {
+            color: var(--text-gray);
+            margin-left: 10px;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        /* Categories */
+        .categories-section {
+            padding: 15px 20px;
+        }
+        
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .section-title h2 {
+            font-size: 18px;
+            color: var(--primary);
+        }
+        
+        .section-title a {
+            color: var(--text-gray);
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .categories-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .category-card {
+            min-width: 100px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), #8E44AD);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(106, 53, 156, 0.2);
+            cursor: pointer;
+        }
+        
+        .category-card.secondary {
+            background: linear-gradient(135deg, var(--secondary), #FFC300);
+        }
+        
+        .category-icon {
+            background-color: rgba(255,255,255,0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .category-name {
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        /* Featured Recipes */
+        .featured-section {
+            padding: 0 20px 20px;
+        }
+        
+        .recipe-card {
+            background-color: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .recipe-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .recipe-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .recipe-details {
+            padding: 15px;
+        }
+        
+        .recipe-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .recipe-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-gray);
+            font-size: 13px;
+        }
+        
+        .recipe-meta span {
+            display: flex;
+            align-items: center;
+        }
+        
+        .recipe-meta i {
+            margin-left: 5px;
+            font-size: 12px;
+        }
+        
+        .recipe-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid var(--gray);
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .action-btn i {
+            margin-left: 5px;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--light);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        .nav-item i {
+            font-size: 22px;
+            margin-bottom: 3px;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+        }
+        
+        .nav-item.active i {
+            color: var(--primary);
+        }
+        
+        /* Special Elements */
+        .premium-badge {
+            background: linear-gradient(135deg, var(--secondary), #FFC300);
+            color: var(--dark);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), #8E44AD);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(106, 53, 156, 0.4);
+            z-index: 90;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        /* Search Results */
+        .search-results {
+            display: none;
+            padding: 20px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-gray);
+        }
+        
+        /* Recipe Details Page */
+        .recipe-page {
+            display: none;
+            padding: 20px;
+        }
+        
+        .back-btn {
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            margin-bottom: 15px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .back-btn i {
+            margin-left: 5px;
+        }
+        
+        .recipe-content {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .recipe-header {
+            margin-bottom: 20px;
+        }
+        
+        .recipe-large-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .recipe-ingredients {
+            margin: 20px 0;
+        }
+        
+        .recipe-ingredients h3, .recipe-steps h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .ingredient-list {
+            list-style-type: none;
+        }
+        
+        .ingredient-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            align-items: center;
+        }
+        
+        .ingredient-list li:before {
+            content: "•";
+            color: var(--secondary);
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        
+        .recipe-steps {
+            margin: 20px 0;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex-grow: 1;
+        }
+        
+        /* Explore Page */
+        .explore-page {
+            display: none;
+            padding: 20px;
+        }
+        
+        /* My Plans Page */
+        .plans-page {
+            display: none;
+            padding: 20px;
+        }
+        
+        /* Favorites Page */
+        .favorites-page {
+            display: none;
+            padding: 20px;
+        }
+        
+        /* Add Recipe Page */
+        .add-recipe-page {
+            display: none;
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .ingredient-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .ingredient-input input {
+            flex-grow: 1;
+        }
+        
+        .step-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .step-input textarea {
+            flex-grow: 1;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary), #8E44AD);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn-secondary {
+            background: var(--gray);
+            color: var(--dark);
+        }
+        
+        .add-btn {
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .remove-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Success Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 80%;
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-icon {
+            font-size: 50px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .modal-text {
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h1 class="app-title">أمنية <span>| Oumnia</span></h1>
+            </div>
+            <div class="header-actions">
+                <a href="#" class="header-icon"><i class="fas fa-bell"></i></a>
+            </div>
+        </header>
+        
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="ابحث عن وصفات...">
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div id="main-content">
+            <!-- Categories -->
+            <section class="categories-section">
+                <div class="section-title">
+                    <h2>تصنيفات الوصفات</h2>
+                    <a href="#" id="view-all-categories">عرض الكل</a>
+                </div>
+                <div class="categories-scroll">
+                    <div class="category-card" data-category="main">
+                        <div class="category-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="category-name">الوجبات الرئيسية</div>
+                    </div>
+                    <div class="category-card secondary" data-category="salads">
+                        <div class="category-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="category-name">السلطات</div>
+                    </div>
+                    <div class="category-card" data-category="bakery">
+                        <div class="category-icon">
+                            <i class="fas fa-bread-slice"></i>
+                        </div>
+                        <div class="category-name">المخبوزات</div>
+                    </div>
+                    <div class="category-card secondary" data-category="desserts">
+                        <div class="category-icon">
+                            <i class="fas fa-ice-cream"></i>
+                        </div>
+                        <div class="category-name">الحلويات</div>
+                    </div>
+                    <div class="category-card" data-category="drinks">
+                        <div class="category-icon">
+                            <i class="fas fa-mug-hot"></i>
+                        </div>
+                        <div class="category-name">المشروبات</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Featured Recipes -->
+            <section class="featured-section">
+                <div class="section-title">
+                    <h2>وصفات مميزة</h2>
+                    <a href="#" id="view-all-featured">عرض الكل</a>
+                </div>
+                
+                <div class="recipe-card" data-id="1" data-category="main">
+                    <div class="recipe-image" style="background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');">
+                        <span class="recipe-badge"><span class="premium-badge">PREMIUM</span> شيف أمنية</span>
+                    </div>
+                    <div class="recipe-details">
+                        <h3 class="recipe-title">باستا السلمون بالكريمة الذهبية</h3>
+                        <div class="recipe-meta">
+                            <span><i class="far fa-clock"></i> 25 دقيقة</span>
+                            <span><i class="fas fa-user-friends"></i> 4 أشخاص</span>
+                            <span><i class="fas fa-star"></i> 4.8</span>
+                        </div>
+                        <div class="recipe-actions">
+                            <a href="#" class="action-btn save-recipe"><i class="far fa-heart"></i> حفظ</a>
+                            <a href="#" class="action-btn"><i class="fas fa-share-alt"></i> مشاركة</a>
+                            <a href="#" class="action-btn plan-recipe"><i class="fas fa-bookmark"></i> خططي</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recipe-card" data-id="2" data-category="salads">
+                    <div class="recipe-image" style="background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');">
+                        <span class="recipe-badge">الأكثر طلباً</span>
+                    </div>
+                    <div class="recipe-details">
+                        <h3 class="recipe-title">سلطة الكينوا بالخضروات المشوية</h3>
+                        <div class="recipe-meta">
+                            <span><i class="far fa-clock"></i> 20 دقيقة</span>
+                            <span><i class="fas fa-user-friends"></i> 2 أشخاص</span>
+                            <span><i class="fas fa-star"></i> 4.9</span>
+                        </div>
+                        <div class="recipe-actions">
+                            <a href="#" class="action-btn save-recipe"><i class="far fa-heart"></i> حفظ</a>
+                            <a href="#" class="action-btn"><i class="fas fa-share-alt"></i> مشاركة</a>
+                            <a href="#" class="action-btn plan-recipe"><i class="fas fa-bookmark"></i> خططي</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Quick Recipes -->
+            <section class="featured-section">
+                <div class="section-title">
+                    <h2>وصفات سريعة</h2>
+                    <a href="#" id="view-all-quick">عرض الكل</a>
+                </div>
+                
+                <div class="recipe-card" data-id="3" data-category="main">
+                    <div class="recipe-image" style="background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');">
+                        <span class="recipe-badge">< 15 دقيقة</span>
+                    </div>
+                    <div class="recipe-details">
+                        <h3 class="recipe-title">أومليت الجبنة والسبانخ</h3>
+                        <div class="recipe-meta">
+                            <span><i class="far fa-clock"></i> 12 دقيقة</span>
+                            <span><i class="fas fa-user-friends"></i> 1 شخص</span>
+                            <span><i class="fas fa-star"></i> 4.5</span>
+                        </div>
+                        <div class="recipe-actions">
+                            <a href="#" class="action-btn save-recipe"><i class="far fa-heart"></i> حفظ</a>
+                            <a href="#" class="action-btn"><i class="fas fa-share-alt"></i> مشاركة</a>
+                            <a href="#" class="action-btn plan-recipe"><i class="fas fa-bookmark"></i> خططي</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recipe-card" data-id="4" data-category="desserts">
+                    <div class="recipe-image" style="background-image: url('https://images.unsplash.com/photo-1562440499-64c9a111f713?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');">
+                        <span class="recipe-badge">حلويات سريعة</span>
+                    </div>
+                    <div class="recipe-details">
+                        <h3 class="recipe-title">موس الشوكولاتة السريع</h3>
+                        <div class="recipe-meta">
+                            <span><i class="far fa-clock"></i> 10 دقيقة</span>
+                            <span><i class="fas fa-user-friends"></i> 2 أشخاص</span>
+                            <span><i class="fas fa-star"></i> 4.7</span>
+                        </div>
+                        <div class="recipe-actions">
+                            <a href="#" class="action-btn save-recipe"><i class="far fa-heart"></i> حفظ</a>
+                            <a href="#" class="action-btn"><i class="fas fa-share-alt"></i> مشاركة</a>
+                            <a href="#" class="action-btn plan-recipe"><i class="fas fa-bookmark"></i> خططي</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Search Results -->
+        <div id="search-results" class="search-results">
+            <div class="section-title">
+                <h2>نتائج البحث</h2>
+                <a href="#" id="back-to-main" class="back-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>العودة</span>
+                </a>
+            </div>
+            <div id="results-container"></div>
+            <div id="no-results" class="no-results" style="display: none;">
+                <i class="fas fa-search" style="font-size: 50px; margin-bottom: 15px; color: var(--text-gray);"></i>
+                <h3>لا توجد نتائج</h3>
+                <p>��م نتمكن من العثور على أي وصفات تطابق بحثك</p>
+            </div>
+        </div>
+        
+        <!-- Recipe Details Page -->
+        <div id="recipe-page" class="recipe-page">
+            <a href="#" id="back-to-results" class="back-btn">
+                <i class="fas fa-arrow-right"></i>
+                <span>العودة</span>
+            </a>
+            
+            <div class="recipe-content">
+                <div class="recipe-header">
+                    <h2 id="recipe-detail-title">باستا السلمون بالكريمة الذهبية</h2>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 25 دقيقة</span>
+                        <span><i class="fas fa-user-friends"></i> 4 أشخاص</span>
+                        <span><i class="fas fa-star"></i> 4.8</span>
+                    </div>
+                </div>
+                
+                <div class="recipe-large-image" id="recipe-detail-image" style="background-image: url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');"></div>
+                
+                <div class="recipe-actions">
+                    <a href="#" class="action-btn save-recipe"><i class="far fa-heart"></i> حفظ</a>
+                    <a href="#" class="action-btn"><i class="fas fa-share-alt"></i> مشاركة</a>
+                    <a href="#" class="action-btn plan-recipe"><i class="fas fa-bookmark"></i> خططي</a>
+                </div>
+                
+                <div class="recipe-ingredients">
+                    <h3>المكونات</h3>
+                    <ul class="ingredient-list" id="ingredient-list">
+                        <!-- سيتم ملؤها بالجافاسكريبت -->
+                    </ul>
+                </div>
+                
+                <div class="recipe-steps">
+                    <h3>طريقة التحضير</h3>
+                    <div id="recipe-steps">
+                        <!-- سيتم ملؤها بالجافاسكريبت -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Explore Page -->
+        <div id="explore-page" class="explore-page">
+            <div class="section-title">
+                <h2>استكشف الوصفات</h2>
+                <a href="#" id="back-to-main-from-explore" class="back-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>العودة</span>
+                </a>
+            </div>
+            
+            <div class="categories-scroll">
+                <div class="category-card" data-category="main">
+                    <div class="category-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="category-name">الوجبات الرئيسية</div>
+                </div>
+                <div class="category-card secondary" data-category="salads">
+                    <div class="category-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="category-name">السلطات</div>
+                </div>
+                <div class="category-card" data-category="bakery">
+                    <div class="category-icon">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <div class="category-name">المخبوزات</div>
+                </div>
+                <div class="category-card secondary" data-category="desserts">
+                    <div class="category-icon">
+                        <i class="fas fa-ice-cream"></i>
+                    </div>
+                    <div class="category-name">الحلويات</div>
+                </div>
+                <div class="category-card" data-category="drinks">
+                    <div class="category-icon">
+                        <i class="fas fa-mug-hot"></i>
+                    </div>
+                    <div class="category-name">المشروبات</div>
+                </div>
+            </div>
+            
+            <div id="explore-recipes-container" class="featured-section">
+                <!-- سيتم ملؤها بالجافاسكريبت -->
+            </div>
+        </div>
+        
+        <!-- My Plans Page -->
+        <div id="plans-page" class="plans-page">
+            <div class="section-title">
+                <h2>وصفاتي المخططة</h2>
+                <a href="#" id="back-to-main-from-plans" class="back-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>العودة</span>
+                </a>
+            </div>
+            
+            <div id="planned-recipes-container" class="featured-section">
+                <!-- سيتم ملؤها بالجافاسكريبت -->
+            </div>
+            
+            <div id="no-plans" class="no-results" style="display: none;">
+                <i class="fas fa-calendar-alt" style="font-size: 50px; margin-bottom: 15px; color: var(--text-gray);"></i>
+                <h3>لا توجد وصفات مخططة</h3>
+                <p>يمكنك التخطيط للوصفات بالنقر على زر "خططي" في أي وصفة</p>
+            </div>
+        </div>
+        
+        <!-- Favorites Page -->
+        <div id="favorites-page" class="favorites-page">
+            <div class="section-title">
+                <h2>وصفاتي المحفوظة</h2>
+                <a href="#" id="back-to-main-from-favorites" class="back-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>العودة</span>
+                </a>
+            </div>
+            
+            <div id="favorites-recipes-container" class="featured-section">
+                <!-- سيتم ملؤها بالجافاسكريبت -->
+            </div>
+            
+            <div id="no-favorites" class="no-results" style="display: none;">
+                <i class="fas fa-heart" style="font-size: 50px; margin-bottom: 15px; color: var(--text-gray);"></i>
+                <h3>لا توجد وصفات محفوظة</h3>
+                <p>يمكنك حفظ الوصفات بالنقر على زر "حفظ" في أي وصفة</p>
+            </div>
+        </div>
+        
+        <!-- Add Recipe Page -->
+        <div id="add-recipe-page" class="add-recipe-page">
+            <div class="section-title">
+                <h2>إضافة وصفة جديدة</h2>
+                <a href="#" id="back-to-main-from-add" class="back-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>العودة</span>
+                </a>
+            </div>
+            
+            <div class="recipe-content">
+                <form id="add-recipe-form">
+                    <div class="form-group">
+                        <label for="recipe-name">اسم الوصفة</label>
+                        <input type="text" id="recipe-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipe-category">التصنيف</label>
+                        <select id="recipe-category" required>
+                            <option value="">اختر تصنيفاً</option>
+                            <option value="main">الوجبات الرئيسية</option>
+                            <option value="salads">السلطات</option>
+                            <option value="bakery">المخبوزات</option>
+                            <option value="desserts">الحلويات</option>
+                            <option value="drinks">المشروبات</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipe-time">وقت التحضير</label>
+                        <input type="text" id="recipe-time" placeholder="مثال: 30 دقيقة" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipe-servings">عدد الأشخاص</label>
+                        <input type="text" id="recipe-servings" placeholder="مثال: 4 أشخاص" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipe-image">صورة الوصفة (رابط URL)</label>
+                        <input type="url" id="recipe-image" placeholder="https://example.com/image.jpg">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>المكونات</label>
+                        <div id="ingredients-container">
+                            <div class="ingredient-input">
+                                <input type="text" class="ingredient" placeholder="مثال: 2 كوب دقيق" required>
+                                <button type="button" class="remove-btn remove-ingredient"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" id="add-ingredient" class="add-btn"><i class="fas fa-plus"></i></button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>خطوات التحضير</label>
+                        <div id="steps-container">
+                            <div class="step-input">
+                                <textarea class="step" placeholder="اكتب خطوة التحضير هنا" required></textarea>
+                                <button type="button" class="remove-btn remove-step"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" id="add-step" class="add-btn"><i class="fas fa-plus"></i></button>
+                    </div>
+                    
+                    <button type="submit" class="btn">إضافة الوصفة</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Floating Button -->
+        <a href="#" id="add-recipe-btn" class="floating-btn">
+            <i class="fas fa-plus"></i>
+        </a>
+        
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active" data-page="main">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#" class="nav-item" data-page="explore">
+                <i class="fas fa-compass"></i>
+                <span>استكشف</span>
+            </a>
+            <a href="#" class="nav-item" data-page="plans">
+                <i class="fas fa-calendar-alt"></i>
+                <span>خططي</span>
+            </a>
+            <a href="#" class="nav-item" data-page="favorites">
+                <i class="fas fa-heart"></i>
+                <span>حفظ</span>
+            </a>
+        </nav>
+        
+        <!-- Success Modal -->
+        <div class="modal-overlay" id="success-modal">
+            <div class="modal-content">
+                <div class="modal-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="modal-title">تمت الإضافة بنجاح!</h3>
+                <p class="modal-text">تمت إضافة وصفتك الجديدة بنجاح وسيتم عرضها في قسم الاستكشف</p>
+                <button class="btn" id="close-modal">حسناً</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // قاعدة بيانات الوصفات
+        let recipes = [
+            {
+                id: 1,
+                title: "باستا السلمون بالكريمة الذهبية",
+                category: "main",
+                time: "25 دقيقة",
+                servings: "4 أشخاص",
+                rating: "4.8",
+                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                premium: true,
+                ingredients: [
+                    "400 جرام معكرونة",
+                    "300 جرام فيليه سلمون",
+                    "1 كوب كريمة طبخ",
+                    "2 فص ثوم مفروم",
+                    "1 ملعقة كبيرة زبدة",
+                    "1 ملعقة صغيرة زعتر",
+                    "ملح وفلفل حسب الرغبة",
+                    "عصير ليمونة"
+                ],
+                steps: [
+                    "اسلقي المعكرونة في ماء مملح حتى تنضج، ثم صفيها من الماء.",
+                    "في مقلاة كبيرة، سخني الزبدة وأضيفي الثوم المفروم حتى تظهر رائحته.",
+                    "أضيفي السلمون المقطع إلى قطع متوسطة واقليه لمدة 3 دقائق.",
+                    "أضيفي الكريمة والزعتر وحركي جيداً، ثم أضيفي عصير الليمون.",
+                    "أضيفي المعكرونة المسلوقة إلى الصلصة وقلبيها جيداً حتى تتغطى بالصلصة.",
+                    "قدمي الطبق ساخناً مع رشة من البقدونس الطازج."
+                ],
+                saved: false,
+                planned: false
+            },
+            {
+                id: 2,
+                title: "سلطة الكينوا بالخضروات المشوية",
+                category: "salads",
+                time: "20 دقيقة",
+                servings: "2 أشخاص",
+                rating: "4.9",
+                image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                ingredients: [
+                    "1 كوب كينوا",
+                    "2 كوب ماء",
+                    "1 حبة باذنجان مقطعة مكعبات",
+                    "1 حبة كوسة مقطعة مكعبات",
+                    "1 حبة فلفل رومي مقطع",
+                    "2 ملعقة كبيرة زيت زيتون",
+                    "1 ملعقة صغيرة ملح",
+                    "1/2 ملعقة صغيرة فلفل أسود",
+                    "1/4 كوب جبنة فيتا مفتتة",
+                    "2 ملعقة كبيرة بقدونس مفروم"
+                ],
+                steps: [
+                    "اغسلي الكينوا جيداً ثم اسلقيها في الماء لمدة 15 دقيقة حتى تنضج.",
+                    "في صينية فرن، وزعي الخضروات المقطعة ورشي عليها الزيت والملح والفلفل.",
+                    "اشوي الخضروات في فرن مسخن مسبقاً على حرارة 200 مئوية لمدة 15 دقيقة.",
+                    "في وعاء كبير، اخلطي الكينوا المسلوقة مع الخضروات المشوية.",
+                    "زيني السلطة بجبنة الفتا والبقدونس المفروم.",
+                    "قدمي السلطة دافئة أو باردة حسب الرغبة."
+                ],
+                saved: false,
+                planned: false
+            },
+            {
+                id: 3,
+                title: "أومليت الجبنة والسبانخ",
+                category: "main",
+                time: "12 دقيقة",
+                servings: "1 شخص",
+                rating: "4.5",
+                image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                ingredients: [
+                    "2 بيضة",
+                    "1/4 كوب سبانخ مفروم",
+                    "2 ملعقة كبيرة جبنة شيدر مبشورة",
+                    "1 ملعقة صغيرة زبدة",
+                    "رشة ملح وفلفل",
+                    "1 ملعقة صغيرة بقدونس مفروم للتزيين"
+                ],
+                steps: [
+                    "في وعاء، اخفقي البيض مع رشة من الملح والفلفل.",
+                    "أضيفي السبانخ المفروم والجبنة المبشورة إلى خليط البيض واخلطي جيداً.",
+                    "في مقلاة غير لاصقة، سخني الزبدة على نار متوسطة.",
+                    "اسكبي خليط البيض في المقلاة واتركيه لمدة 2-3 دقائق حتى ينضج من الأسفل.",
+                    "اقلب الأومليت برفق واطهيه لمدة دقيقة أخرى.",
+                    "زيني بالبقدونس المفروم وقدمي ساخناً."
+                ],
+                saved: false,
+                planned: false
+            },
+            {
+                id: 4,
+                title: "موس الشوكولاتة السريع",
+                category: "desserts",
+                time: "10 دقيقة",
+                servings: "2 أشخاص",
+                rating: "4.7",
+                image: "https://images.unsplash.com/photo-1562440499-64c9a111f713?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                ingredients: [
+                    "200 جرام شوكولاتة داكنة",
+                    "1 كوب كريمة خفق",
+                    "2 ملعقة كبيرة سكر",
+                    "1 ملعقة صغيرة فانيليا",
+                    "رشة ملح"
+                ],
+                steps: [
+                    "قطعي الشوكولاتة إلى قطع صغيرة واذوبيها في حمام مائي مع رشة الملح.",
+                    "في وعاء آخر، اخفقي الكريمة مع السكر والفانيليا حتى تتكون قمم ناعمة.",
+                    "أضيفي الشوكولاتة المذابة إلى الكريمة المخفوقة واخلطي بلطف.",
+                    "قسمي الخليط إلى كؤوس تقديم وبرديه في الثلاجة لمدة ساعتين على الأقل.",
+                    "زيني بقطع الشوكولاتة أو الفواكه الطازجة قبل التقديم."
+                ],
+                saved: false,
+                planned: false
+            },
+            {
+                id: 5,
+                title: "سموثي التوت والموز",
+                category: "drinks",
+                time: "5 دقيقة",
+                servings: "2 أشخاص",
+                rating: "4.6",
+                image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                ingredients: [
+                    "1 موز مجمد",
+                    "1 كوب توت مجمد",
+                    "1 كوب لبن زبادي",
+                    "1/2 كوب حليب",
+                    "1 ملعقة كبيرة عسل",
+                    "1/2 ملعقة صغيرة فانيليا"
+                ],
+                steps: [
+                    "ضعي جميع المكونات في الخلاط الكهربائي.",
+                    "اخلطي المكونات على سرعة عالية حتى تحصلي على قوام ناعم.",
+                    "إذا كان الخليط سميكاً جداً، أضيفي القليل من الحليب.",
+                    "اسكبي السموثي في أكواب التقديم.",
+                    "زيني ببعض حبات التوت الطازج وقدميها باردة."
+                ],
+                saved: false,
+                planned: false
+            }
+        ];
+
+        // عناصر DOM
+        const searchInput = document.getElementById('search-input');
+        const mainContent = document.getElementById('main-content');
+        const searchResults = document.getElementById('search-results');
+        const resultsContainer = document.getElementById('results-container');
+        const noResults = document.getElementById('no-results');
+        const recipePage = document.getElementById('recipe-page');
+        const backToMain = document.getElementById('back-to-main');
+        const backToResults = document.getElementById('back-to-results');
+        const recipeCards = document.querySelectorAll('.recipe-card');
+        const categoryCards = document.querySelectorAll('.category-card');
+        const explorePage = document.getElementById('explore-page');
+        const plansPage = document.getElementById('plans-page');
+        const favoritesPage = document.getElementById('favorites-page');
+        const addRecipePage = document.getElementById('add-recipe-page');
+        const navItems = document.querySelectorAll('.nav-item');
+        const addRecipeBtn = document.getElementById('add-recipe-btn');
+        const exploreRecipesContainer = document.getElementById('explore-recipes-container');
+        const plannedRecipesContainer = document.getElementById('planned-recipes-container');
+        const favoritesRecipesContainer = document.getElementById('favorites-recipes-container');
+        const noPlans = document.getElementById('no-plans');
+        const noFavorites = document.getElementById('no-favorites');
+        const addRecipeForm = document.getElementById('add-recipe-form');
+        const ingredientsContainer = document.getElementById('ingredients-container');
+        const stepsContainer = document.getElementById('steps-container');
+        const addIngredientBtn = document.getElementById('add-ingredient');
+        const addStepBtn = document.getElementById('add-step');
+        const successModal = document.getElementById('success-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        // تهيئة التطبيق
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحميل الوصفات المحفوظة والمخططة من localStorage
+            loadSavedAndPlannedRecipes();
+            
+            // عرض الوصفات في صفحة الاستكشف
+            displayExploreRecipes();
+            
+            // عرض الوصفات المخططة
+            displayPlannedRecipes();
+            
+            // عرض الوصفات المحفوظة
+            displayFavoritesRecipes();
+        });
+
+        // تحميل الوصفات المحفوظة والمخططة من localStorage
+        function loadSavedAndPlannedRecipes() {
+            const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            const plannedRecipes = JSON.parse(localStorage.getItem('plannedRecipes')) || [];
+            
+            recipes.forEach(recipe => {
+                recipe.saved = savedRecipes.includes(recipe.id);
+                recipe.planned = plannedRecipes.includes(recipe.id);
+            });
+        }
+
+        // حفظ الوصفات المحفوظة والمخططة في localStorage
+        function saveRecipesToStorage() {
+            const savedRecipes = recipes.filter(recipe => recipe.saved).map(recipe => recipe.id);
+            const plannedRecipes = recipes.filter(recipe => recipe.planned).map(recipe => recipe.id);
+            
+            localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+            localStorage.setItem('plannedRecipes', JSON.stringify(plannedRecipes));
+        }
+
+        // البحث عن الوصفات
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.trim().toLowerCase();
+            
+            if (searchTerm.length > 0) {
+                showPage('search-results');
+                resultsContainer.innerHTML = '';
+                noResults.style.display = 'none';
+                
+                const filteredRecipes = recipes.filter(recipe => 
+                    recipe.title.toLowerCase().includes(searchTerm) ||
+                    recipe.ingredients.some(ing => ing.toLowerCase().includes(searchTerm))
+                ).sort((a, b) => b.rating - a.rating);
+                
+                if (filteredRecipes.length > 0) {
+                    filteredRecipes.forEach(recipe => {
+                        createRecipeCard(recipe, resultsContainer);
+                    });
+                } else {
+                    noResults.style.display = 'block';
+                }
+            } else {
+                showPage('main');
+            }
+        });
+
+        // عرض تفاصيل الوصفة
+        function showRecipeDetails(recipeId) {
+            const recipe = recipes.find(r => r.id == recipeId);
+            if (!recipe) return;
+            
+            document.getElementById('recipe-detail-title').textContent = recipe.title;
+            document.getElementById('recipe-detail-image').style.backgroundImage = `url('${recipe.image}')`;
+            
+            const ingredientsList = document.getElementById('ingredient-list');
+            ingredientsList.innerHTML = '';
+            recipe.ingredients.forEach(ing => {
+                const li = document.createElement('li');
+                li.textContent = ing;
+                ingredientsList.appendChild(li);
+            });
+            
+            const stepsContainer = document.getElementById('recipe-steps');
+            stepsContainer.innerHTML = '';
+            recipe.steps.forEach((step, index) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.className = 'step';
+                stepDiv.innerHTML = `
+                    <div class="step-number">${index + 1}</div>
+                    <div class="step-content">${step}</div>
+                `;
+                stepsContainer.appendChild(stepDiv);
+            });
+            
+            // تحديث معلومات الوصفة
+            document.querySelector('#recipe-page .recipe-meta').innerHTML = `
+                <span><i class="far fa-clock"></i> ${recipe.time}</span>
+                <span><i class="fas fa-user-friends"></i> ${recipe.servings}</span>
+                <span><i class="fas fa-star"></i> ${recipe.rating}</span>
+            `;
+            
+            // تحديث حالة الأزرار
+            const saveBtn = document.querySelector('#recipe-page .save-recipe i');
+            const planBtn = document.querySelector('#recipe-page .plan-recipe i');
+            
+            if (recipe.saved) {
+                saveBtn.classList.remove('far');
+                saveBtn.classList.add('fas');
+                saveBtn.style.color = 'red';
+            } else {
+                saveBtn.classList.remove('fas');
+                saveBtn.classList.add('far');
+                saveBtn.style.color = '';
+            }
+            
+            if (recipe.planned) {
+                planBtn.style.color = 'var(--secondary)';
+            } else {
+                planBtn.style.color = '';
+            }
+            
+            showPage('recipe-page');
+        }
+
+        // إنشاء بطاقة وصفة
+        function createRecipeCard(recipe, container) {
+            const recipeCard = document.createElement('div');
+            recipeCard.className = 'recipe-card';
+            recipeCard.setAttribute('data-id', recipe.id);
+            recipeCard.innerHTML = `
+                <div class="recipe-image" style="background-image: url('${recipe.image}');">
+                    ${recipe.premium ? '<span class="recipe-badge"><span class="premium-badge">PREMIUM</span> شيف أمنية</span>' : ''}
+                </div>
+                <div class="recipe-details">
+                    <h3 class="recipe-title">${recipe.title}</h3>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> ${recipe.time}</span>
+                        <span><i class="fas fa-user-friends"></i> ${recipe.servings}</span>
+                        <span><i class="fas fa-star"></i> ${recipe.rating}</span>
+                    </div>
+                    <div class="recipe-actions">
+                        <a href="#" class="action-btn save-recipe"><i class="${recipe.saved ? 'fas' : 'far'} fa-heart" style="${recipe.saved ? 'color: red;' : ''}"></i> حفظ</a>
+                        <a href="#" class="action-btn"><i class="fas fa-share-alt"></i> مشاركة</a>
+                        <a href="#" class="action-btn plan-recipe"><i class="fas fa-bookmark" style="${recipe.planned ? 'color: var(--secondary);' : ''}"></i> خططي</a>
+                    </div>
+                </div>
+            `;
+            container.appendChild(recipeCard);
+            
+            // إضافة حدث النقر للوصفة
+            recipeCard.addEventListener('click', function(e) {
+                if (!e.target.closest('.action-btn')) {
+                    showRecipeDetails(recipe.id);
+                }
+            });
+            
+            // إضافة حدث النقر لحفظ الوصفة
+            recipeCard.querySelector('.save-recipe').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleSaveRecipe(recipe.id);
+                
+                // تحديث الأيقونة
+                const icon = this.querySelector('i');
+                if (recipe.saved) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.style.color = 'red';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    icon.style.color = '';
+                }
+                
+                // تحديث صفحة المفضلة
+                displayFavoritesRecipes();
+            });
+            
+            // إضافة حدث النقر لتخطيط الوصفة
+            recipeCard.querySelector('.plan-recipe').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                togglePlanRecipe(recipe.id);
+                
+                // تحديث الأيقونة
+                const icon = this.querySelector('i');
+                if (recipe.planned) {
+                    icon.style.color = 'var(--secondary)';
+                } else {
+                    icon.style.color = '';
+                }
+                
+                // تحديث صفحة الخطط
+                displayPlannedRecipes();
+            });
+        }
+
+        // تبديل حالة حفظ الوصفة
+        function toggleSaveRecipe(recipeId) {
+            const recipe = recipes.find(r => r.id == recipeId);
+            if (recipe) {
+                recipe.saved = !recipe.saved;
+                saveRecipesToStorage();
+            }
+        }
+
+        // تبديل حالة تخطيط الوصفة
+        function togglePlanRecipe(recipeId) {
+            const recipe = recipes.find(r => r.id == recipeId);
+            if (recipe) {
+                recipe.planned = !recipe.planned;
+                saveRecipesToStorage();
+            }
+        }
+
+        // عرض الوصفات في صفحة الاستكشف
+        function displayExploreRecipes() {
+            exploreRecipesContainer.innerHTML = '';
+            
+            recipes.forEach(recipe => {
+                createRecipeCard(recipe, exploreRecipesContainer);
+            });
+        }
+
+        // عرض الوصفات المخططة
+        function displayPlannedRecipes() {
+            plannedRecipesContainer.innerHTML = '';
+            const plannedRecipes = recipes.filter(recipe => recipe.planned);
+            
+            if (plannedRecipes.length > 0) {
+                noPlans.style.display = 'none';
+                plannedRecipes.forEach(recipe => {
+                    createRecipeCard(recipe, plannedRecipesContainer);
+                });
+            } else {
+                noPlans.style.display = 'block';
+            }
+        }
+
+        // عرض الوصفات المحفوظة
+        function displayFavoritesRecipes() {
+            favoritesRecipesContainer.innerHTML = '';
+            const savedRecipes = recipes.filter(recipe => recipe.saved);
+            
+            if (savedRecipes.length > 0) {
+                noFavorites.style.display = 'none';
+                savedRecipes.forEach(recipe => {
+                    createRecipeCard(recipe, favoritesRecipesContainer);
+                });
+            } else {
+                noFavorites.style.display = 'block';
+            }
+        }
+
+        // عرض صفحة معينة
+        function showPage(pageName) {
+            // إخفاء جميع الصفحات
+            mainContent.style.display = 'none';
+            searchResults.style.display = 'none';
+            recipePage.style.display = 'none';
+            explorePage.style.display = 'none';
+            plansPage.style.display = 'none';
+            favoritesPage.style.display = 'none';
+            addRecipePage.style.display = 'none';
+            
+            // إظهار الصفحة المطلوبة
+            switch(pageName) {
+                case 'main':
+                    mainContent.style.display = 'block';
+                    break;
+                case 'search-results':
+                    searchResults.style.display = 'block';
+                    break;
+                case 'recipe-page':
+                    recipePage.style.display = 'block';
+                    break;
+                case 'explore':
+                    explorePage.style.display = 'block';
+                    break;
+                case 'plans':
+                    plansPage.style.display = 'block';
+                    break;
+                case 'favorites':
+                    favoritesPage.style.display = 'block';
+                    break;
+                case 'add-recipe':
+                    addRecipePage.style.display = 'block';
+                    break;
+            }
+            
+            // تحديث التنقل السفلي
+            updateNavItems(pageName);
+        }
+
+        // تحديث أزرار التنقل السفلي
+        function updateNavItems(activePage) {
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-page') === activePage) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // العودة إلى الصفحة الرئيسية
+        backToMain.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('main');
+        });
+
+        // العودة إلى الصفحة الرئيسية من الاستكشف
+        document.getElementById('back-to-main-from-explore').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('main');
+        });
+
+        // العودة إلى الصفحة الرئيسية من الخطط
+        document.getElementById('back-to-main-from-plans').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('main');
+        });
+
+        // العودة إلى الصفحة الرئيسية من المفضلة
+        document.getElementById('back-to-main-from-favorites').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('main');
+        });
+
+        // العودة إلى الصفحة الرئيسية من إضافة وصفة
+        document.getElementById('back-to-main-from-add').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('main');
+        });
+
+        // العودة إلى نتائج البحث
+        backToResults.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('search-results');
+        });
+
+        // التنقل بين الصفحات
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const page = this.getAttribute('data-page');
+                showPage(page);
+            });
+        });
+
+        // فتح صفحة إضافة وصفة
+        addRecipeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('add-recipe');
+        });
+
+        // إضافة مكون جديد
+        addIngredientBtn.addEventListener('click', function() {
+            const ingredientInput = document.createElement('div');
+            ingredientInput.className = 'ingredient-input';
+            ingredientInput.innerHTML = `
+                <input type="text" class="ingredient" placeholder="مثال: 2 كوب دقيق" required>
+                <button type="button" class="remove-btn remove-ingredient"><i class="fas fa-times"></i></button>
+            `;
+            ingredientsContainer.appendChild(ingredientInput);
+            
+            // إضافة حدث إزالة للمكون
+            ingredientInput.querySelector('.remove-ingredient').addEventListener('click', function() {
+                if (ingredientsContainer.children.length > 1) {
+                    ingredientInput.remove();
+                }
+            });
+        });
+
+        // إضافة خطوة جديدة
+        addStepBtn.addEventListener('click', function() {
+            const stepInput = document.createElement('div');
+            stepInput.className = 'step-input';
+            stepInput.innerHTML = `
+                <textarea class="step" placeholder="اكتب خطوة التحضير هنا" required></textarea>
+                <button type="button" class="remove-btn remove-step"><i class="fas fa-times"></i></button>
+            `;
+            stepsContainer.appendChild(stepInput);
+            
+            // إضافة حدث إزالة للخطوة
+            stepInput.querySelector('.remove-step').addEventListener('click', function() {
+                if (stepsContainer.children.length > 1) {
+                    stepInput.remove();
+                }
+            });
+        });
+
+        // إزالة مكون أو خطوة
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-ingredient')) {
+                if (ingredientsContainer.children.length > 1) {
+                    e.target.closest('.ingredient-input').remove();
+                }
+            }
+            
+            if (e.target.classList.contains('remove-step')) {
+                if (stepsContainer.children.length > 1) {
+                    e.target.closest('.step-input').remove();
+                }
+            }
+        });
+
+        // إضافة وصفة جديدة
+        addRecipeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // جمع بيانات الوصفة
+            const title = document.getElementById('recipe-name').value;
+            const category = document.getElementById('recipe-category').value;
+            const time = document.getElementById('recipe-time').value;
+            const servings = document.getElementById('recipe-servings').value;
+            const image = document.getElementById('recipe-image').value || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80';
+            
+            // جمع المكونات
+            const ingredients = [];
+            document.querySelectorAll('.ingredient').forEach(input => {
+                if (input.value.trim()) {
+                    ingredients.push(input.value.trim());
+                }
+            });
+            
+            // جمع الخطوات
+            const steps = [];
+            document.querySelectorAll('.step').forEach(textarea => {
+                if (textarea.value.trim()) {
+                    steps.push(textarea.value.trim());
+                }
+            });
+            
+            // إنشاء وصفة جديدة
+            const newRecipe = {
+                id: recipes.length + 1,
+                title,
+                category,
+                time,
+                servings,
+                rating: (4 + Math.random() * 0.9).toFixed(1), // تقييم عشوائي بين 4 و 4.9
+                image,
+                ingredients,
+                steps,
+                saved: false,
+                planned: false
+            };
+            
+            // إضافة الوصفة إلى القائمة
+            recipes.unshift(newRecipe);
+            
+            // عرض رسالة النجاح
+            successModal.style.display = 'flex';
+            
+            // تحديث صفحات الاستكشف والرئيسية
+            displayExploreRecipes();
+            
+            // إعادة تعيين النموذج
+            addRecipeForm.reset();
+            
+            // إبقاء مكون واحد وخطوة واحدة فقط
+            while (ingredientsContainer.children.length > 1) {
+                ingredientsContainer.lastChild.remove();
+            }
+            
+            while (stepsContainer.children.length > 1) {
+                stepsContainer.lastChild.remove();
+            }
+            
+            // إعادة تعيين الحقول
+            document.querySelector('.ingredient').value = '';
+            document.querySelector('.step').value = '';
+        });
+
+        // إغلاق نافذة النجاح
+        closeModalBtn.addEventListener('click', function() {
+            successModal.style.display = 'none';
+            showPage('explore');
+        });
+
+        // إضافة أحداث النقر لبطاقات الوصفات الموجودة في الصفحة الرئيسية
+        recipeCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('.action-btn')) {
+                    const recipeId = this.getAttribute('data-id');
+                    showRecipeDetails(recipeId);
+                }
+            });
+            
+            // إضافة حدث لحفظ الوصفة
+            card.querySelector('.save-recipe').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const recipeId = card.getAttribute('data-id');
+                toggleSaveRecipe(recipeId);
+                
+                // تحديث الأيقونة
+                const icon = this.querySelector('i');
+                const recipe = recipes.find(r => r.id == recipeId);
+                if (recipe.saved) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.style.color = 'red';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    icon.style.color = '';
+                }
+                
+                // تحديث صفحة المفضلة
+                displayFavoritesRecipes();
+            });
+            
+            // إضافة حدث لتخطيط الوصفة
+            card.querySelector('.plan-recipe').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const recipeId = card.getAttribute('data-id');
+                togglePlanRecipe(recipeId);
+                
+                // تحديث الأيقونة
+                const icon = this.querySelector('i');
+                const recipe = recipes.find(r => r.id == recipeId);
+                if (recipe.planned) {
+                    icon.style.color = 'var(--secondary)';
+                } else {
+                    icon.style.color = '';
+                }
+                
+                // تحديث صفحة الخطط
+                displayPlannedRecipes();
+            });
+        });
+
+        // تصفية الوصفات حسب التصنيف
+        categoryCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                showPage('search-results');
+                resultsContainer.innerHTML = '';
+                noResults.style.display = 'none';
+                
+                const filteredRecipes = recipes.filter(recipe => recipe.category === category)
+                    .sort((a, b) => b.rating - a.rating);
+                
+                if (filteredRecipes.length > 0) {
+                    filteredRecipes.forEach(recipe => {
+                        createRecipeCard(recipe, resultsContainer);
+                    });
+                } else {
+                    noResults.innerHTML = `
+                        <i class="fas fa-utensils" style="font-size: 50px; margin-bottom: 15px; color: var(--text-gray);"></i>
+                        <h3>لا توجد وصفات في هذا التصنيف</h3>
+                        <p>سنقوم بإضافة وصفات جديدة قريباً</p>
+                    `;
+                    noResults.style.display = 'block';
+                }
+            });
+        });
+
+        // عرض جميع الوصفات المميزة
+        document.getElementById('view-all-featured').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('search-results');
+            resultsContainer.innerHTML = '';
+            noResults.style.display = 'none';
+            
+            recipes.sort((a, b) => b.rating - a.rating).forEach(recipe => {
+                createRecipeCard(recipe, resultsContainer);
+            });
+        });
+
+        // عرض جميع الوصفات السريعة
+        document.getElementById('view-all-quick').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('search-results');
+            resultsContainer.innerHTML = '';
+            noResults.style.display = 'none';
+            
+            const quickRecipes = recipes.filter(recipe => {
+                const time = parseInt(recipe.time);
+                return time <= 15;
+            }).sort((a, b) => a.time - b.time);
+            
+            if (quickRecipes.length > 0) {
+                quickRecipes.forEach(recipe => {
+                    createRecipeCard(recipe, resultsContainer);
+                });
+            } else {
+                noResults.innerHTML = `
+                    <i class="fas fa-clock" style="font-size: 50px; margin-bottom: 15px; color: var(--text-gray);"></i>
+                    <h3>لا توجد وصفات سريعة حالياً</h3>
+                    <p>سنقوم بإضافة وصفات جديدة قريباً</p>
+                `;
+                noResults.style.display = 'block';
+            }
+        });
+
+        // عرض جميع التصنيفات
+        document.getElementById('view-all-categories').addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('explore');
+        });
+    </script>
+</body>
+</html>

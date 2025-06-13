@@ -20,6 +20,7 @@
       --warning: #f39c12;
       --border: #2d3e4f;
       --ton-orange: #0098ea;
+      --gw-purple: #8a2be2;
     }
     
     * {
@@ -360,6 +361,179 @@
       text-align: center;
     }
     
+    /* New styles for GW wallet */
+    .wallet-section {
+      background-color: rgba(138, 43, 226, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      margin: 20px 0;
+      display: none;
+    }
+    
+    .wallet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .wallet-title {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .wallet-title img {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+    }
+    
+    .wallet-balance {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .wallet-balance img {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+    
+    .withdraw-button {
+      background: linear-gradient(135deg, var(--gw-purple), #6a0dad);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s;
+    }
+    
+    .withdraw-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+    }
+    
+    .withdraw-button:disabled {
+      background: var(--border);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 25px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+    
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .modal-message {
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+    
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .modal-button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s;
+    }
+    
+    .modal-confirm {
+      background-color: var(--success);
+      color: white;
+    }
+    
+    .modal-cancel {
+      background-color: var(--border);
+      color: var(--text);
+    }
+    
+    /* Airdrop section */
+    .airdrop-section {
+      background-color: rgba(0, 136, 204, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    
+    .airdrop-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .airdrop-title i {
+      margin-right: 8px;
+      color: var(--primary);
+    }
+    
+    .airdrop-button {
+      background: linear-gradient(135deg, var(--primary), var(--ton-orange));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+      transition: all 0.3s;
+    }
+    
+    .airdrop-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4);
+    }
+    
     @media (max-width: 480px) {
       .sale-stats {
         grid-template-columns: 1fr;
@@ -377,6 +551,15 @@
       
       .token-info {
         text-align: center;
+      }
+      
+      .modal-buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .modal-button {
+        width: 100%;
       }
     }
   </style>
@@ -411,7 +594,7 @@
           <div class="phase-title">PHASE 1 - PRE-MARKET SALE</div>
           <div class="phase-details">
             Selling 10M GW tokens at 10 TON = 200 GW<br>
-            Minimum purchase: 10 TON
+            Minimum purchase: 10 TON | Maximum purchase: 1000 TON
           </div>
         </div>
         
@@ -457,7 +640,7 @@
           <form class="buy-form" id="buy-form">
             <div class="input-group">
               <label class="input-label">Amount to invest (TON)</label>
-              <input type="number" class="input-field" id="ton-amount" min="10" step="1" placeholder="Minimum 10 TON">
+              <input type="number" class="input-field" id="ton-amount" min="10" max="1000" step="1" placeholder="10-1000 TON">
             </div>
             
             <div class="price-info">
@@ -470,12 +653,55 @@
           </form>
         </div>
         
+        <!-- GW Wallet Section -->
+        <div class="wallet-section" id="wallet-section">
+          <div class="wallet-header">
+            <div class="wallet-title">
+              <img src="https://i.suar.me/NzAB4/l" alt="GW">
+              <span>Your GW Wallet</span>
+            </div>
+          </div>
+          <div class="wallet-balance">
+            <img src="https://i.suar.me/NzAB4/l" alt="GW">
+            <span id="user-gw-balance">0</span> GW
+          </div>
+          <button class="withdraw-button" id="withdraw-button" disabled>
+            WITHDRAW GW TOKENS
+          </button>
+        </div>
+        
+        <!-- Airdrop Section -->
+        <div class="airdrop-section">
+          <div class="airdrop-title">
+            <i class="fas fa-parachute-box"></i>
+            GW Token Airdrop
+          </div>
+          <p>Participate in our airdrop program to earn free GW tokens!</p>
+          <a href="https://t.me/GiftwinerBot" class="airdrop-button" target="_blank">
+            JOIN AIRDROP
+          </a>
+        </div>
+        
         <div class="status-message" id="status-message"></div>
         
         <a href="https://t.me/giftwiner" class="telegram-link" target="_blank">
           <i class="fab fa-telegram"></i>
           Join our Telegram for updates
         </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Withdrawal Confirmation Modal -->
+  <div class="modal" id="withdraw-modal">
+    <div class="modal-content">
+      <div class="modal-title">Confirm Withdrawal</div>
+      <div class="modal-message" id="withdraw-message">
+        Are you sure you want to withdraw your GW tokens? This action cannot be undone.
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-button modal-cancel" id="cancel-withdraw">Cancel</button>
+        <button class="modal-button modal-confirm" id="confirm-withdraw">Confirm</button>
       </div>
     </div>
   </div>
@@ -487,8 +713,10 @@
       walletAddress: null,
       tgUser: null,
       gwSold: 0,
+      userGWBalance: 0,
       gwPrice: 0.05, // 10 TON = 200 GW (0.05 TON per GW)
-      googleSheetURL: 'https://script.google.com/macros/s/YOUR_GOOGLE_SCRIPT_ID/exec' // Replace with your Google Apps Script URL
+      googleSheetURL: 'https://script.google.com/macros/s/YOUR_GOOGLE_SCRIPT_ID/exec', // Replace with your Google Apps Script URL
+      tonWalletAddress: 'UQCTZAMbXoN5T43K9gJXH8GYWBmIstXrUrdoV9kv3btN1Ad3' // Your TON wallet address
     };
     
     // Initialize TonConnect
@@ -504,6 +732,15 @@
         modalHoverBackground: 'rgba(0, 136, 204, 0.1)'
       }
     });
+    
+    // DOM Elements
+    const walletSection = document.getElementById('wallet-section');
+    const userGWBalanceElement = document.getElementById('user-gw-balance');
+    const withdrawButton = document.getElementById('withdraw-button');
+    const withdrawModal = document.getElementById('withdraw-modal');
+    const cancelWithdrawBtn = document.getElementById('cancel-withdraw');
+    const confirmWithdrawBtn = document.getElementById('confirm-withdraw');
+    const withdrawMessage = document.getElementById('withdraw-message');
     
     // Get Telegram user data if running in Telegram WebApp
     function getTelegramUser() {
@@ -539,6 +776,14 @@
         walletStatus.classList.remove('disconnected');
         
         buyButton.disabled = false;
+        
+        // Show wallet section if user has balance
+        if (appState.userGWBalance > 0) {
+          walletSection.style.display = 'block';
+        }
+        
+        // Load user's GW balance from localStorage
+        loadUserBalance();
       } else {
         appState.walletConnected = false;
         appState.walletAddress = null;
@@ -553,24 +798,54 @@
     
     // Calculate GW amount based on TON input
     function calculateGW() {
-      const tonAmount = parseFloat(document.getElementById('ton-amount').value) || 0;
+      const tonAmountInput = document.getElementById('ton-amount');
+      let tonAmount = parseFloat(tonAmountInput.value) || 0;
+      
+      // Enforce maximum limit
+      if (tonAmount > 1000) {
+        tonAmount = 1000;
+        tonAmountInput.value = 1000;
+      }
+      
       const gwAmount = Math.floor(tonAmount / appState.gwPrice);
       document.getElementById('gw-amount').textContent = gwAmount.toLocaleString();
       
       const buyButton = document.getElementById('buy-button');
-      buyButton.disabled = !(appState.walletConnected && tonAmount >= 10);
+      buyButton.disabled = !(appState.walletConnected && tonAmount >= 10 && tonAmount <= 1000);
+    }
+    
+    // Save user balance to localStorage
+    function saveUserBalance() {
+      if (appState.walletAddress) {
+        localStorage.setItem(`gwBalance_${appState.walletAddress}`, appState.userGWBalance.toString());
+      }
+    }
+    
+    // Load user balance from localStorage
+    function loadUserBalance() {
+      if (appState.walletAddress) {
+        const savedBalance = localStorage.getItem(`gwBalance_${appState.walletAddress}`);
+        if (savedBalance) {
+          appState.userGWBalance = parseInt(savedBalance) || 0;
+          updateGWBalanceUI();
+        }
+      }
+    }
+    
+    // Update GW balance UI
+    function updateGWBalanceUI() {
+      userGWBalanceElement.textContent = appState.userGWBalance.toLocaleString();
+      
+      if (appState.userGWBalance > 0) {
+        walletSection.style.display = 'block';
+        withdrawButton.disabled = !appState.walletConnected;
+      } else {
+        walletSection.style.display = 'none';
+      }
     }
     
     // Send data to Google Sheet
-    async function sendToGoogleSheet(tonAmount, gwAmount) {
-      const data = {
-        username: appState.tgUser?.username || 'Unknown',
-        walletAddress: appState.walletAddress,
-        tonAmount: tonAmount,
-        gwAmount: gwAmount,
-        date: new Date().toISOString()
-      };
-      
+    async function sendToGoogleSheet(data) {
       try {
         const response = await fetch(appState.googleSheetURL, {
           method: 'POST',
@@ -600,8 +875,8 @@
         return;
       }
       
-      if (tonAmount < 10) {
-        statusMessage.textContent = 'Minimum purchase is 10 TON';
+      if (tonAmount < 10 || tonAmount > 1000) {
+        statusMessage.textContent = 'Please enter amount between 10 and 1000 TON';
         statusMessage.className = 'status-message error';
         return;
       }
@@ -612,7 +887,7 @@
           validUntil: Math.floor(Date.now() / 1000) + 600, // 10 minutes
           messages: [
             {
-              address: 'YOUR_TON_WALLET_ADDRESS', // Replace with your TON wallet address
+              address: appState.tonWalletAddress,
               amount: (tonAmount * 1000000000).toString(), // Convert TON to nanoTON
             }
           ]
@@ -622,14 +897,29 @@
         
         // If transaction succeeds
         if (result) {
-          // Update sold amount
+          // Update sold amount and user balance
           appState.gwSold += gwAmount;
+          appState.userGWBalance += gwAmount;
+          
           document.getElementById('sold-amount').textContent = appState.gwSold.toLocaleString();
           const progressPercent = Math.min(100, (appState.gwSold / 10000000) * 100);
           document.getElementById('progress-fill').style.width = `${progressPercent}%`;
           
-          // Send data to Google Sheet
-          const sheetSuccess = await sendToGoogleSheet(tonAmount, gwAmount);
+          // Update user balance UI
+          updateGWBalanceUI();
+          saveUserBalance();
+          
+          // Send purchase data to Google Sheet
+          const purchaseData = {
+            type: 'purchase',
+            username: appState.tgUser?.username || 'Unknown',
+            walletAddress: appState.walletAddress,
+            tonAmount: tonAmount,
+            gwAmount: gwAmount,
+            date: new Date().toISOString()
+          };
+          
+          const sheetSuccess = await sendToGoogleSheet(purchaseData);
           
           if (sheetSuccess) {
             statusMessage.textContent = `Success! You purchased ${gwAmount.toLocaleString()} GW tokens`;
@@ -638,10 +928,61 @@
             statusMessage.textContent = `Purchase successful but data not saved. Contact support with TX: ${result.boc.slice(0, 10)}...`;
             statusMessage.className = 'status-message error';
           }
+          
+          // Reset form
+          document.getElementById('ton-amount').value = '';
+          calculateGW();
         }
       } catch (error) {
         console.error('Transaction failed:', error);
         statusMessage.textContent = 'Transaction failed: ' + error.message;
+        statusMessage.className = 'status-message error';
+      }
+    }
+    
+    // Process withdrawal
+    async function processWithdrawal() {
+      const statusMessage = document.getElementById('status-message');
+      
+      if (!appState.walletConnected) {
+        statusMessage.textContent = 'Please connect your wallet first';
+        statusMessage.className = 'status-message error';
+        return;
+      }
+      
+      if (appState.userGWBalance <= 0) {
+        statusMessage.textContent = 'You have no GW tokens to withdraw';
+        statusMessage.className = 'status-message error';
+        return;
+      }
+      
+      try {
+        // Send withdrawal data to Google Sheet
+        const withdrawalData = {
+          type: 'withdrawal',
+          username: appState.tgUser?.username || 'Unknown',
+          walletAddress: appState.walletAddress,
+          gwAmount: appState.userGWBalance,
+          date: new Date().toISOString()
+        };
+        
+        const sheetSuccess = await sendToGoogleSheet(withdrawalData);
+        
+        if (sheetSuccess) {
+          statusMessage.textContent = `Withdrawal request submitted for ${appState.userGWBalance.toLocaleString()} GW tokens`;
+          statusMessage.className = 'status-message success';
+          
+          // Reset user balance
+          appState.userGWBalance = 0;
+          updateGWBalanceUI();
+          saveUserBalance();
+        } else {
+          statusMessage.textContent = 'Withdrawal request failed. Please try again later.';
+          statusMessage.className = 'status-message error';
+        }
+      } catch (error) {
+        console.error('Withdrawal failed:', error);
+        statusMessage.textContent = 'Withdrawal failed: ' + error.message;
         statusMessage.className = 'status-message error';
       }
     }
@@ -661,6 +1002,29 @@
       
       // Set up buy button listener
       document.getElementById('buy-button').addEventListener('click', processPurchase);
+      
+      // Set up withdraw button listener
+      withdrawButton.addEventListener('click', () => {
+        withdrawMessage.textContent = `Are you sure you want to withdraw ${appState.userGWBalance.toLocaleString()} GW tokens? This action cannot be undone.`;
+        withdrawModal.style.display = 'flex';
+      });
+      
+      // Set up modal button listeners
+      cancelWithdrawBtn.addEventListener('click', () => {
+        withdrawModal.style.display = 'none';
+      });
+      
+      confirmWithdrawBtn.addEventListener('click', () => {
+        withdrawModal.style.display = 'none';
+        processWithdrawal();
+      });
+      
+      // Close modal when clicking outside
+      withdrawModal.addEventListener('click', (e) => {
+        if (e.target === withdrawModal) {
+          withdrawModal.style.display = 'none';
+        }
+      });
       
       // Initialize GW calculation
       calculateGW();
